@@ -1,0 +1,19 @@
+{
+  "name": "budget-tracker",
+  "version": "1.0.0",
+  "description": "Add functionality to our existing Budget Tracker application to allow for offline access and functionality.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaryVPie/budget-tracker.git"
+  },
+  "author": "mvpie",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MaryVPie/budget-tracker/issues"
+  },
+  "homepage": "https://github.com/MaryVPie/budget-tracker#readme"
+}

@@ -1,49 +1,52 @@
 let db;
-let dbBudget;
-const storeName = 'BudgetStore';
+let dbVersion = 3;
+const dbName = 'BudgetDb';
+const storeName = 'budget';
 
-const request = indexedDB.open( 'BudgetDB', dbBudget );
+const request = indexedDB.open(dbName, dbVersion );
 
-request.onError = function ( event ) {
-	console.log( `An error: ${event.target.errorCode}` );
+request.onerror = function ( e ) {
+	console.log( `An error: ${e.target.errorCode}` );
 };
 
-request.onUpgradeNeeded = function ( event ) {
+request.onupgradeneeded = function ( e ) {
 	console.log( 'Upgrading indexedDB' );
 
-	const { oldBudget } = event;
-	const newBudget = event.newBudget || db.budget;
+	const { oldVersion } = e;
+	const newVersion = e.newVersion || db.version;
 
-	console.log( `indexedDB updated from V${oldBudget} to V${newBudget}` );
+	console.log( `indexedDB updated from V${oldVersion} to V${newVersion}` );
 
-	db = event.target.result;
+	db = e.target.result;
 
 	if( db.objectStoreNames.length === 0 ) {
 		db.createObjectStore( storeName, { autoIncrement: true } );
 	}
 };
 
-
-request.onSuccess = function ( event ) {
+// On Success
+request.onsuccess = function ( e ) {
 	console.log( 'Successfully opened indexedDB' );
 
-	db = event.target.result;
+	db = e.target.result;
 
 	if( navigator.onLine ) {
-
+		console.log( 'Backend online' );
 
 		checkDatabase();
 	}
 };
 
-function makeStore( storeName ) {
-	const transaction = db.transaction( [ storeName ], 'readwrite' );
-	const store = transaction.objectStore( storeName );
+// Utility function for making transactions and returning as a store
+function makeStore( sName ) {
+	const transaction = db.transaction( [ sName ], 'readwrite' );
+
+	const store = transaction.objectStore( sName );
 
 	return store;
 }
 
-
+// Check the Indexed Database
 function checkDatabase() {
 	console.log( 'Checking DB' );
 
@@ -51,7 +54,7 @@ function checkDatabase() {
 
 	const getAll = store.getAll();
 
-	getAll.onSuccess = function () {
+	getAll.onsuccess = function () {
 		if( getAll.result.length > 0 ) {
 			fetch( '/api/transaction/bulk', {
 				method: 'POST',
@@ -67,13 +70,15 @@ function checkDatabase() {
 						const store = makeStore( storeName );
 
 						store.clear();
+
+						console.log( 'indexedDB Cleared' );
 					}
 				} );
 		}
 	};
 }
 
-
+// Save an offline data
 const saveRecord = ( record ) => {
 	console.log( 'Saving offline record' );
 

@@ -22,22 +22,26 @@ SO THAT my account balance is accurate when I am traveling
 ```
 
 
-## Screenshots
+## Work Done Screenshot
 
+<img src="./budgettr.PNG" width="450" height="500" alt="Budget tracker"/>
 
+## What's included
+- PWA
+- Webmanifest
+- Service-worker
+- Cache
+- IndexedDB
+- MongoDB
+- Mongoose
+- Node.js
+- Express.js
 
-* Deploy your application with [Heroku and MongoDB Atlas.](../04-Important/MongoAtlas-Deploy.md)
 
 ## Links to Review
 
-* The URL of the functional, deployed application:
+* The URL of the functional, deployed application on Heroku: https://budget-tracker-mvpie.herokuapp.com/
 
 * The URL of the GitHub repository: https://github.com/MaryVPie/budget-tracker
 
 - - -
-
-## Hint
-
-* In order to cache dynamic content, i.e. users' inputs for withdrawals or deposits, incorporate `indexedDB` from the previous module.
-
-* Use [Google](https://www.google.com) or another search engine to research this topic.

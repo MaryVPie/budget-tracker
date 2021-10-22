@@ -45,14 +45,14 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
   <script src="index.js"></script>
   <script src="db.js"></script>
-  <!-- <script>
+  <script>
 		if ("serviceWorkers" in navigator) {
 			window.addEventListener("load", () => {
-				navigator.serviceWorkers.register("service-worker.js").then(reg => {
-					// console.log("serviceWorkers", reg);
+				navigator.serviceWorker.register("service-worker.js").then(reg => {
+					console.log("serviceWorkers", reg);
 				});
 			});
 		}
-	</script> -->
+	</script>
 </body>
 </html>
